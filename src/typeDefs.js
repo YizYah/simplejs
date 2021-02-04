@@ -1,13 +1,23 @@
-import {gql} from "apollo-server";
+import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
+  type Query {
+    frontPage: [Fruit!]!
+    fruits: [Fruit!]!
+    customers: [Customer!]!
   }
 
-  type Query {
-    books: [Book]
+  type Mutation {
+    addFruitToBasket: Boolean!
   }
-`;
+
+  type Fruit {
+    name: String!
+    count: Int!
+  }
+
+  type Customer {
+    id: ID!
+    basket: [Fruit!]!
+  }
+`

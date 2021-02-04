@@ -2,8 +2,10 @@
   "name": "simplejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "lint": "eslint \"src/**/*.js\"",
+    "lintfix": "eslint \"src/**/*.js\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -14,5 +16,10 @@
     "apollo-server": "^2.19.2",
     "graphql": "^14.7.0",
     "graphql-shield": "^7.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
   }
 }
