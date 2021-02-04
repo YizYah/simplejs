@@ -3,7 +3,12 @@ import { users } from './users.js'
 
 // export function getUser(ctx: ContextParameters) {
 export function getUser(ctx) {
-  const auth = ctx.request.get('Authorization')
+  // return {
+  //   id: 1,
+  //   name: 'Mathew',
+  //   role: 'admin',
+  // }
+  const auth = ctx.req.get('Authorization')
   if (users[auth]) {
     return users[auth]
   }

@@ -5,7 +5,8 @@ import { isAdmin, isAuthenticated, isEditor } from './rules.js'
 
 export const permissions = shield({
   Query: {
-    frontPage: not(isAuthenticated),
+    // frontPage: not(isAuthenticated),
+    frontPage: isAdmin,
     fruits: and(isAuthenticated, or(isAdmin, isEditor)),
     customers: and(isAuthenticated, isAdmin),
   },
