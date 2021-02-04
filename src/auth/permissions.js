@@ -1,9 +1,9 @@
-import {
-  shield, and, or, not,
-} from 'graphql-shield'
-import { isAdmin, isAuthenticated, isEditor } from './rules.js'
+const {
+  shield, and, or,
+} = require('graphql-shield')
+const { isAdmin, isAuthenticated, isEditor } = require('./rules')
 
-export const permissions = shield({
+const permissions = shield({
   Query: {
     // frontPage: not(isAuthenticated),
     frontPage: isAdmin,
@@ -16,3 +16,5 @@ export const permissions = shield({
   Fruit: isAuthenticated,
   Customer: isAdmin,
 })
+
+module.exports = permissions

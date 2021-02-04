@@ -1,11 +1,11 @@
-import { ApolloServer } from 'apollo-server'
-import { applyMiddleware } from 'graphql-middleware'
-import { makeExecutableSchema } from 'graphql-tools'
+const { ApolloServer } = require('apollo-server')
+const { applyMiddleware } = require('graphql-middleware')
+const { makeExecutableSchema } = require('graphql-tools')
 
-import { typeDefs } from './typeDefs.js'
-import { resolvers } from './resolvers.js'
-import { permissions } from './auth/permissions.js'
-import { getUser } from './auth/getUser.js'
+const typeDefs = require('./typeDefs')
+const resolvers = require('./resolvers')
+const permissions = require('./auth/permissions')
+const getUser = require('./auth/getUser')
 
 const createContext = ({ req }) => {
   const { headers } = req

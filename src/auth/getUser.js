@@ -1,8 +1,8 @@
 // import { ContextParameters } from 'graphql-yoga/dist/types'
-import { users } from './users.js'
+const users = require('./users.js')
 
 // export function getUser(ctx: ContextParameters) {
-export function getUser(ctx) {
+const getUser = (ctx) => {
   // return {
   //   id: 1,
   //   name: 'Mathew',
@@ -14,3 +14,5 @@ export function getUser(ctx) {
   }
   return null
 }
+
+module.exports = getUser

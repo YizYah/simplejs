@@ -1,6 +1,4 @@
-export {}
-
-export const users = {
+const users = {
   mathew: {
     id: 1,
     name: 'Mathew',
@@ -17,3 +15,5 @@ export const users = {
     role: 'customer',
   },
 }
+
+module.exports = users
