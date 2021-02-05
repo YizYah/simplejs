@@ -6,16 +6,21 @@ const isAuthenticated = rule({ cache: 'contextual' })(
   async (parent, args, ctx) => ctx.user !== null,
 )
 
-const isAdmin = rule({ cache: 'contextual' })(
-  async (parent, args, ctx) => ctx.user.role === 'admin',
+const isCustomer = rule({ cache: 'contextual' })(
+  async (parent, args, ctx) => (ctx.user.role).toLowerCase() === 'customer',
 )
 
-const isEditor = rule({ cache: 'contextual' })(
-  async (parent, args, ctx) => ctx.user.role === 'editor',
+const isModerator = rule({ cache: 'contextual' })(
+  async (parent, args, ctx) => (ctx.user.role).toLowerCase() === 'moderator',
+)
+
+const isUser = rule({ cache: 'contextual' })(
+  async (parent, args, ctx) => (ctx.user.role).toLowerCase() === 'user',
 )
 
 module.exports = {
   isAuthenticated,
-  isAdmin,
-  isEditor,
+  isCustomer,
+  isModerator,
+  isUser
 }

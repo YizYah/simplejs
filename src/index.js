@@ -7,14 +7,11 @@ const resolvers = require('./resolvers')
 const permissions = require('./auth/permissions')
 const getUser = require('./auth/getUser')
 
-const createContext = ({ req }) => {
-  const { headers } = req
-  const auth = null
-  // parse Auth header and do something
+const createContext = async ( req ) => ({
+  ...req,
+  user: await getUser(req),
+})
 
-  // put the auth info into context
-  return { auth }
-}
 
 // const myPlugin = {
 //
@@ -58,10 +55,7 @@ const server = new ApolloServer(
     // plugins: [
     //   myPlugin,
     // ],
-    context: (req) => ({
-      ...req,
-      user: getUser(req),
-    }),
+    context: createContext,
   },
 )
 
