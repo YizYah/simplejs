@@ -7,7 +7,7 @@ import { resolvers } from './resolvers.js'
 import { permissions } from './auth/permissions.js'
 import { getUser } from './auth/getUser.js'
 
-const createContext = ({ req }) => {
+const createAuthContext = ({ req }) => {
   const { headers } = req
   const auth = null
   // parse Auth header and do something
@@ -16,33 +16,6 @@ const createContext = ({ req }) => {
   return { auth }
 }
 
-// const myPlugin = {
-//
-//   // Fires whenever a GraphQL request is received from a client.
-//   requestDidStart(requestContext) {
-//     console.log(`Request started! Query:\n${
-//       requestContext.request.query}`)
-//
-//     return {
-//
-//       // Fires whenever Apollo Server will parse a GraphQL
-//       // request to create its associated document AST.
-//       parsingDidStart(requestContext) {
-//         console.log('Parsing started!')
-//       },
-//
-//       // Fires whenever Apollo Server will validate a
-//       // request's document AST against your GraphQL schema.
-//       validationDidStart(requestContext) {
-//         console.log('Validation started!')
-//       },
-//
-//     }
-//   },
-// }
-
-// schema definition...
-// typeDefs = applyMiddleware(typeDefs, permissions)
 const schema = applyMiddleware(
   makeExecutableSchema({
     typeDefs,
