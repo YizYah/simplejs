@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server'
+const { gql } = require('apollo-server')
 
-export const typeDefs = gql`
+const typeDefs = gql`
   type Query {
     frontPage: [Fruit!]!
     fruits: [Fruit!]!
@@ -21,3 +21,4 @@ export const typeDefs = gql`
     basket: [Fruit!]!
   }
 `
+module.exports = typeDefs

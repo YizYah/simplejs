@@ -1,15 +1,26 @@
-import { rule } from 'graphql-shield'
+const { rule } = require('graphql-shield')
 
 /* Read more about cache options down in the `rules/cache` section. */
 
-export const isAuthenticated = rule({ cache: 'contextual' })(
+const isAuthenticated = rule({ cache: 'contextual' })(
   async (parent, args, ctx) => ctx.user !== null,
 )
 
-export const isAdmin = rule({ cache: 'contextual' })(
-  async (parent, args, ctx) => ctx.user.role === 'admin',
+const isCustomer = rule({ cache: 'contextual' })(
+  async (parent, args, ctx) => (ctx.user.role).toLowerCase() === 'customer',
 )
 
-export const isEditor = rule({ cache: 'contextual' })(
-  async (parent, args, ctx) => ctx.user.role === 'editor',
+const isModerator = rule({ cache: 'contextual' })(
+  async (parent, args, ctx) => (ctx.user.role).toLowerCase() === 'moderator',
 )
+
+const isUser = rule({ cache: 'contextual' })(
+  async (parent, args, ctx) => (ctx.user.role).toLowerCase() === 'user',
+)
+
+module.exports = {
+  isAuthenticated,
+  isCustomer,
+  isModerator,
+  isUser
+}
