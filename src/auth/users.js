@@ -2,18 +2,18 @@ const users = {
   mathew: {
     id: 1,
     name: 'Mathew',
-    role: 'admin',
+    role: 'admin'
   },
   george: {
     id: 2,
     name: 'George',
-    role: 'editor',
+    role: 'editor'
   },
   johnny: {
     id: 3,
     name: 'Johnny',
-    role: 'customer',
-  },
+    role: 'customer'
+  }
 }
 
 module.exports = users

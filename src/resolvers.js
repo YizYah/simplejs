@@ -1,12 +1,11 @@
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
+const { neo4jgraphql } = require("neo4j-graphql-js")
+
 const resolvers = {
   Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-  },
+    appSpec(object, params, ctx, resolveInfo) {
+      return neo4jgraphql(object, params, ctx, resolveInfo);
+    }
+  }
 }
 
 module.exports = resolvers
