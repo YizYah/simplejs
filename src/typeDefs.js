@@ -13,7 +13,7 @@ type User {
 type app {
     id: ID!
     value: String
-    appSpecUsertypes: [userType] @relation(name: "Assn_app_to_userType_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42", direction: OUT)
+    appSpecUsertypes: [usertype] @relation(name: "Assn_app_to_userType_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42", direction: OUT)
 
     appSpecDescriptions: [description] @relation(name: "Assn_app_to_description_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42", direction: OUT)
 }
