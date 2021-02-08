@@ -1,8 +1,5 @@
-// import { ContextParameters } from 'graphql-yoga/dist/types'
-const users = require('./users.js')
 const getSession = require('../config/getDBSession')
 const getCognito = require('../config/getCognito')
-
 
 function resolveCognitoUser (params) {
   const cognito = getCognito()
@@ -49,7 +46,6 @@ const getUser = async (ctx) => {
   const session = await getSession()
   try {
     const userData = await resolveCognitoUser(params)
-    console.log('userData: ', userData)
     const userId = userData.id
     const user = await userQuery(userId, session)
     // const user = {

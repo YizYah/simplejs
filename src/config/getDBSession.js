@@ -7,8 +7,8 @@ const getSession = async () => {
     process.env.DB_URI,
     neo4j.auth.basic(
       process.env.DB_USER,
-      process.env.DB_PASSWORD,
-    ),
+      process.env.DB_PASSWORD
+    )
   )
 
   try {

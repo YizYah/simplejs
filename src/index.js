@@ -1,6 +1,5 @@
 const { ApolloServer } = require('apollo-server')
 const { applyMiddleware } = require('graphql-middleware')
-const { makeExecutableSchema } = require('graphql-tools')
 const { makeAugmentedSchema } = require('neo4j-graphql-js')
 
 const typeDefs = require('./typeDefs')
@@ -8,28 +7,31 @@ const resolvers = require('./resolvers')
 const permissions = require('./auth/permissions')
 const getUser = require('./auth/getUser')
 
-const createContext = async ( req ) => ({
+const createContext = async (req) => ({
   ...req,
-  user: await getUser(req),
+  user: await getUser(req)
 })
 
 const schema = applyMiddleware(
   makeAugmentedSchema({
     typeDefs,
-    resolvers,
+    resolvers
   }),
-  permissions,
+  permissions
 )
 
 const server = new ApolloServer(
   {
     schema,
     resolvers,
+    query: false,
+    mutation: false,
+    auth: false,
     // plugins: [
     //   myPlugin,
     // ],
-    context: createContext,
-  },
+    context: createContext
+  }
 )
 
 // The `listen` method launches a web server.
