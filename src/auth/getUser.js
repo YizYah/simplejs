@@ -23,7 +23,10 @@ function resolveCognitoUser (params) {
 }
 
 async function userQuery (userId, session) {
-  const query = 'MATCH (u:User{id:$userId})<-[:OWNED_BY]-(:Platform) RETURN u'
+  const query = `
+    match (user:User {id:$userId})-[:IS_IN_CLASS]->(uc:UserClass)
+    return user.name as name, user.id as id, collect(uc.name) as roles
+  `
   try {
     const result = await session.run(
       query,
@@ -48,18 +51,29 @@ const getUser = async (ctx) => {
     const userData = await resolveCognitoUser(params)
     console.log('userData: ', userData)
     const userId = userData.id
-    // const user = await userQuery(userId, session)
-    const user = {
-      'id': '12412341453245',
-      'role': 'Moderator',
-      'name': 'sss'
-    }
+    const user = await userQuery(userId, session)
+    // const user = {
+    //   'id': '12412341453245',
+    //   'roles': ['Moderator'],
+    //   'name': 'sss'
+    // }
+    const userInfo = user[0]
+
     // it must be returned role in user
-    console.log(`user=${JSON.stringify(user)}`)
+    console.log(`user=${JSON.stringify(userInfo)}`)
+    try {
+      const roles = userInfo.get('roles')
+      console.log(`roles=${JSON.stringify(roles)}`)
+      const name = userInfo.get('name')
+      console.log(`name=${JSON.stringify(name)}`)
+    } catch (e) {
+      console.log('e:', e)
+    }
+
     if (!user) {
       return null
     }
-    return user
+    return user[0]
   } catch (err) {
     console.log(`error getting user from token: ${JSON.stringify(err)}`)
   } finally {
