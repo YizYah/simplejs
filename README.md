@@ -29,7 +29,7 @@ This project is a sample for developing an exported server.  Currently, we are c
     ```
      $ npm run start
     ```
- - Add the`AccessToken` from the res into `HTTP HEADERS` in graphql playground
+ - Add the`AccessToken` from the results of the last step into `HTTP HEADERS` in graphql playground
     ```
     {
       "Authorization": "******"
