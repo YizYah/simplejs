@@ -1,6 +1,7 @@
 const { ApolloServer } = require('apollo-server')
 const { applyMiddleware } = require('graphql-middleware')
 const { makeExecutableSchema } = require('graphql-tools')
+const { makeAugmentedSchema } = require('neo4j-graphql-js')
 
 const typeDefs = require('./typeDefs')
 const resolvers = require('./resolvers')
@@ -13,7 +14,7 @@ const createContext = async ( req ) => ({
 })
 
 const schema = applyMiddleware(
-  makeExecutableSchema({
+  makeAugmentedSchema({
     typeDefs,
     resolvers,
   }),
