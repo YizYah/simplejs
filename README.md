@@ -2,7 +2,7 @@
 This project is a sample for developing an exported server.  Currently, we are confirming that the middleware is working correctly.
 
 # Running it
-1. Get a Access Token
+1. Get an Access Token
   - open [pivotate-backend-url](https://osc6oeg32a.execute-api.us-east-1.amazonaws.com/dev/graphql) in Playground.  Make sure that the playground url is the same as the browser url (you need the `/dev/`).
     
   - add the appropriate query variables:
