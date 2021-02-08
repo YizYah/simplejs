@@ -35,7 +35,7 @@ type screen {
     value: String
     infoTypes: [infotype] @relation(name: "Assn_screen_to_infoType_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42", direction: OUT)
 }
-type usertype {
+type userType {
     id: ID!
     value: String
     screens: [screen] @relation(name: "Assn_userType_to_screen_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42", direction: OUT)

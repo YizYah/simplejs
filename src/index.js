@@ -21,7 +21,7 @@ const driver = neo4j.driver(
 
 const createContext = async (req) => ({
   ...req,
-    driver,
+  driver,
   user: await getUser(req)
 })
 
