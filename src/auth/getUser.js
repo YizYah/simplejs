@@ -55,17 +55,6 @@ const getUser = async (ctx) => {
     // }
     const userInfo = user[0]
 
-    // it must be returned role in user
-    console.log(`user=${JSON.stringify(userInfo)}`)
-    try {
-      const roles = userInfo.get('roles')
-      console.log(`roles=${JSON.stringify(roles)}`)
-      const name = userInfo.get('name')
-      console.log(`name=${JSON.stringify(name)}`)
-    } catch (e) {
-      console.log('e:', e)
-    }
-
     if (!user) {
       return null
     }
