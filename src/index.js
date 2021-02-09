@@ -6,7 +6,7 @@ const { makeAugmentedSchema } = require('neo4j-graphql-js')
 
 const typeDefs = require('./typeDefs')
 const resolvers = require('./resolvers')
-// const permissions = require('./auth/permissions')
+const permissions = require('./auth/permissions')
 const getUser = require('./auth/getUser')
 
 const neo4j = require('neo4j-driver')
@@ -36,8 +36,8 @@ const schema = applyMiddleware(
         auth: false
       }
     }
-  )
-  // permissions
+  ),
+  permissions,
 )
 
 const server = new ApolloServer(
