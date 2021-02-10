@@ -8,7 +8,8 @@ const permissions =
     shield(
       {
         Query: {
-          appSpec: or(isModerator, isCustomer),
+          // appSpec: or(isModerator, isCustomer),
+            appSpec: isCustomer,
         },
         // NOTE: could add permissions for type fields
       })
