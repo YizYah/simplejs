@@ -1,4 +1,4 @@
-const {cypherAdd} = require("./cypherGenerators")
+const {cypherCreate, cypherUpdate, cypherDelete} = require('./cypherGenerators')
 
 const { gql } = require('apollo-server')
 
@@ -49,26 +49,25 @@ type Query {
 }
 
 type Mutation {
-    appSpecCreateScreen(appSpecId: ID!, value: String): Screen
-    appSpecUpdateScreen(screen: ID!, value: String): Screen
-    appSpecDeleteScreen(screen: ID!): Boolean
+    appSpecCreateScreen(userTypeId: ID!, value: String): Screen  ${cypherCreate('appSpec', 'screen')}
+    appSpecUpdateScreen(screenId: ID!, value: String): Screen  ${cypherUpdate('screen')}
+    appSpecDeleteScreen(screenId: ID!): Boolean ${cypherDelete('screen')}
 
-    appSpecCreateApp(appSpecId: ID!, value: String): App
-    appSpecUpdateApp(app: ID!, value: String): App
-    appSpecDeleteApp(app: ID!): Boolean
+    appSpecCreateApp(customerId: ID!, value: String): App  ${cypherCreate('appSpec', 'app')}
+    appSpecUpdateApp(appId: ID!, value: String): App  ${cypherUpdate('app')}
+    appSpecDeleteApp(appId: ID!): Boolean ${cypherDelete('app')}
 
-    appSpecCreateUserType(appSpecId: ID!, value: String): UserType ${cypherAdd('appSpec', 'userType')}
-    appSpecUpdateUserType(userType: ID!, value: String): UserType
-    appSpecDeleteUserType(userType: ID!): Boolean
+    appSpecCreateUserType(appId: ID!, value: String): UserType  ${cypherCreate('appSpec', 'userType')}
+    appSpecUpdateUserType(userTypeId: ID!, value: String): UserType  ${cypherUpdate('userType')}
+    appSpecDeleteUserType(userTypeId: ID!): Boolean ${cypherDelete('userType')}
 
-    appSpecCreateDescription(appSpecId: ID!, value: String): Description
-    appSpecUpdateDescription(description: ID!, value: String): Description
-    appSpecDeleteDescription(description: ID!): Boolean
+    appSpecCreateDescription(appId: ID!, value: String): Description  ${cypherCreate('appSpec', 'description')}
+    appSpecUpdateDescription(descriptionId: ID!, value: String): Description  ${cypherUpdate('description')}
+    appSpecDeleteDescription(descriptionId: ID!): Boolean ${cypherDelete('description')}
 
-    appSpecCreateInfoType(appSpecId: ID!, value: String): InfoType
-    appSpecUpdateInfoType(infoType: ID!, value: String): InfoType
-    appSpecDeleteInfoType(infoType: ID!): Boolean
-
+    appSpecCreateInfoType(screenId: ID!, value: String): InfoType  ${cypherCreate('appSpec', 'infoType')}
+    appSpecUpdateInfoType(infoTypeId: ID!, value: String): InfoType  ${cypherUpdate('infoType')}
+    appSpecDeleteInfoType(infoTypeId: ID!): Boolean ${cypherDelete('infoType')}
 
     createUser(
         name: String,

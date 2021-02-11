@@ -9,8 +9,13 @@ const permissions =
       {
         Query: {
           // appSpec: or(isModerator, isCustomer),
-            appSpec: isCustomer,
+          appSpec: isCustomer
         },
+        Mutation: {
+          appSpecCreateUserType: true,
+          appSpecUpdateUserType: true,
+          appSpecDeleteUserType: true
+        }
         // NOTE: could add permissions for type fields
       })
 

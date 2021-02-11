@@ -1,36 +1,48 @@
-const relationships = {
-  appSpec: {
-    app: {
-      type: 'App',
-      parent: 'customer',
-      assn: 'Assn_customer_to_app_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42',
-      kind: 'multiple'
-    },
-    userType: {
-      type: 'UserType',
-      parent: 'app',
-      assn: 'Assn_app_to_userType_for_e36aa4c6-8029-4969-b1fe-d659bdb9eb42',
-      kind: 'multiple'
-    }
+const { relationships } = require('./relationships')
+const capitalize = require('capitalize')
 
-  }
-}
-
-function cypherAdd (unit, type) {
+function cypherCreate (unit, instance) {
   const unitInfo = relationships[unit]
-  const typeInfo = unitInfo[type]
-  const { parent, assn, kind } = typeInfo
-  const typeName = typeInfo.type
+
+  const typeInfo = unitInfo[instance]
+  const { parent, assn, kind, type } = typeInfo
 
   const parentInfo = unitInfo[parent]
-  const parentTypeName = parentInfo.type
+  const parentType = parentInfo.type
 
-  return `@cypher("match (${parent}:${parentTypeName}:Exported {id:${parent}Id, owner:$cypherParams.currentUserId})
-    merge (${parent})-[:\\\`${assn}\\\` {kind: \"${kind}\"}]-(${type}:${typeName}:Exported {id: apoc.create.uuid(), value:$value, owner:$cypherParams.currentUserId}) return ${type}")`
+  return '@cypher(statement: "' +
+      `MATCH (${parent}:${parentType}:Exported {id:${parent}Id, owner:$cypherParams.currentUserId}) ` +
+      `MERGE (${parent})-[:\`${assn}\` {kind: '${kind}' }]-(${instance}:${type}:Exported {id: apoc.create.uuid(), value:$value, owner:$cypherParams.currentUserId}) ` +
+      `RETURN ${instance}` +
+      '")'
 }
 
-console.log(`cypherAdd('appSpec','userType')=${cypherAdd('appSpec','userType')}`)
+function cypherUpdate (instance) {
+  const type = capitalize(instance, true)
+
+  return '@cypher(statement: "' +
+      `MATCH (${instance}:${type}:Exported {id:$${instance}Id, owner:$cypherParams.currentUserId}) ` +
+      `SET ${instance}.value=$value ` +
+      `RETURN ${instance}` +
+      '")'
+}
+
+function cypherDelete (instance) {
+  const type = capitalize(instance, true)
+
+  return '@cypher(statement: "' +
+      `MATCH (${instance}:${type}:Exported {id:$${instance}Id, owner:$cypherParams.currentUserId}) ` +
+      `DETACH DELETE ${instance} ` +
+      'RETURN true' +
+      '")'
+}
+
+console.log(`cypherUpdate('appSpec', 'userType')=${cypherCreate('appSpec', 'userType')}`)
+console.log(`cypherUpdate('userType')=${cypherUpdate('userType')}`)
+console.log(`cypherDelete('userType')=${cypherDelete('userType')}`)
 
 module.exports = {
-  cypherAdd,
+  cypherCreate,
+  cypherUpdate,
+  cypherDelete
 }
