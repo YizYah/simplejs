@@ -37,10 +37,6 @@ function cypherDelete (instance) {
       '")'
 }
 
-console.log(`cypherUpdate('appSpec', 'userType')=${cypherCreate('appSpec', 'userType')}`)
-console.log(`cypherUpdate('userType')=${cypherUpdate('userType')}`)
-console.log(`cypherDelete('userType')=${cypherDelete('userType')}`)
-
 module.exports = {
   cypherCreate,
   cypherUpdate,
