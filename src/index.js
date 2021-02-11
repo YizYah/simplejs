@@ -26,6 +26,7 @@ const createContext = async (req) => ({
   cypherParams: {
     currentUserId: (await getUser(req)).get('id')
   }
+
 })
 
 const schema = applyMiddleware(
