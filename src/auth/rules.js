@@ -22,6 +22,9 @@ const isModerator = rule({ cache: 'contextual' })(
 const isCustomer = rule({ cache: 'contextual' })(
   async (parent, args, ctx) => {
     const roles = getRoles(ctx.user.get('roles'))
+    console.log(`in isCustomer, roles=${JSON.stringify(roles)}`)
+    console.log(`in isCustomer, cypherParams.currentUserid=${ctx.cypherParams.currentUserid}`)
+      console.log(`in isCustomer, roles.includes('customer')=${roles.includes('customer')}`)
     return roles.includes('customer')
   }
 )

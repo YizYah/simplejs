@@ -4,7 +4,7 @@ const { ApolloServer } = require('apollo-server')
 const { applyMiddleware } = require('graphql-middleware')
 const { makeAugmentedSchema } = require('neo4j-graphql-js')
 
-const typeDefs = require('./typeDefs')
+const typeDefs = require('./schema/typeDefs')
 const resolvers = require('./resolvers')
 const permissions = require('./auth/permissions')
 const getUser = require('./auth/getUser')
@@ -12,17 +12,21 @@ const getUser = require('./auth/getUser')
 const neo4j = require('neo4j-driver')
 
 const driver = neo4j.driver(
-    process.env.DB_URI,
-    neo4j.auth.basic(
-        process.env.DB_USER,
-        process.env.DB_PASSWORD
-    )
+  process.env.DB_URI,
+  neo4j.auth.basic(
+    process.env.DB_USER,
+    process.env.DB_PASSWORD
+  )
 )
 
 const createContext = async (req) => ({
   ...req,
   driver,
-  user: await getUser(req)
+  user: await getUser(req),
+  cypherParams: {
+    currentUserId: (await getUser(req)).get('id')
+  }
+
 })
 
 const schema = applyMiddleware(
@@ -37,7 +41,7 @@ const schema = applyMiddleware(
       }
     }
   ),
-  permissions,
+  permissions
 )
 
 const server = new ApolloServer(
