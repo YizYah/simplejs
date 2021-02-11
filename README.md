@@ -10,7 +10,7 @@ This project is a sample for developing an exported server.  Currently, we are c
   ```
   {
   "actionId": "a0d89c1f-c423-45e0-9339-c719dcbb7afe",
-  "executionParameters": "{\"userName\":\"mod\",\"password\":\"letMeIn1!\",\"platformId\":\"us-east-1_IDHU1YQ1O\"}",
+  "executionParameters": "{\"userName\":\"themod\",\"password\":\"l3tm3!n\",\"platformId\":\"us-east-1_IDHU1YQ1O\"}",
   "unrestricted": true
 }
   ```
